@@ -1,0 +1,34 @@
+package me.doobles;
+
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.inventory.ItemStack;
+
+public class JoinListener implements Listener {
+	
+	public JoinListener(ServerFunctions plugin) {
+		plugin.getServer().getPluginManager().registerEvents(this, plugin);	
+	}
+	
+	@EventHandler
+	public void onPlayerJoin(PlayerJoinEvent e) {
+		
+		Player player = e.getPlayer();
+
+		e.setJoinMessage(ChatColor.AQUA + "Welcome, " + player.getName() + ", to the server!");
+		
+		//If a new player joins the server: 
+		if (player.hasPlayedBefore() == false) {
+			player.sendMessage(ChatColor.GREEN + "Welcome to {server}! Take this {item}!");
+			
+			//Gives the player an apple!
+			player.getInventory().addItem(new ItemStack (Material.APPLE, 1));
+		}
+		
+	}
+	
+}
